@@ -1,15 +1,27 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import requestService from "../../../services/requestService";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import requestService from "../../services/requestService";
 
-function RequestForm({ requestedDate, onCancel }) {
+
+function EditRequest() {
+    const { requestId } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        category: 'Birthday',
+        title: "",
+        description: "",
+        category: "",
+        requestedDate: "",
     });
-    const { title, description, category } = formData;
+    const { title, description, category, requestedDate } = formData;
+
+
+    useEffect(() => {
+        async function getRequest() {
+            const data = await requestService.getRequest(requestId);
+            setFormData(data)
+        }
+        getRequest();
+    }, [requestId]);
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -18,10 +30,7 @@ function RequestForm({ requestedDate, onCancel }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-            await requestService.createRequest({
-                ...formData,
-                requestedDate
-            })
+            await requestService.updateRequest(formData, requestId)
             navigate('/requests')
         } catch (error) {
             console.log(error.message)
@@ -37,9 +46,9 @@ function RequestForm({ requestedDate, onCancel }) {
         <main>
             <div className="auth-page">
                 <div className="auth-card">
-                    <div className="auth-logo">New Request</div>
+                    <div className="auth-logo">Edit Request</div>
 
-                    <h1>Create Request 🍪</h1>
+                    <h1>Edit Request 🍪</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor='title' className="form-label">Title:</label>
@@ -79,13 +88,13 @@ function RequestForm({ requestedDate, onCancel }) {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor='confirm' className="form-label">Requested Date: {requestedDate.toLocaleDateString()}</label>
+                            <label htmlFor='confirm' className="form-label">Requested Date: {new Date(requestedDate).toLocaleDateString()}</label>
 
 
                         </div>
                         <div className="auth-buttons">
                             <button className="auth-button" disabled={isFormInvalid()}>Request</button>
-                            <button className="auth-cancel" onClick={onCancel}>Cancel</button>
+                            <button className="auth-cancel" onClick={() => navigate('/requests')}>Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -93,4 +102,4 @@ function RequestForm({ requestedDate, onCancel }) {
         </main>
     )
 }
-export default RequestForm
+export default EditRequest

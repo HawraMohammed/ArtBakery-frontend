@@ -1,12 +1,17 @@
 import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 import './RequestCard.css'
+import { Link } from "react-router";
 
 function RequestCard({ request, handleDeleteReq }) {
     const { user } = useContext(UserContext)
     return (
         <div className="request-card">
             <div className="request-card-header">
+                <Link to={`/requests/${request._id}/edit`}
+                    className="edit-button">
+                    <i className="bi bi-pencil"></i>
+                </Link>
                 <span className="request-category">
                     {request.category}
                 </span>

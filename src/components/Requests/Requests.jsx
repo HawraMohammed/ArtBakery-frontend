@@ -3,10 +3,12 @@ import requestService from "../../services/requestService"
 import RequestCard from "./RequestCard/RequestCard";
 import { UserContext } from "../../contexts/UserContext";
 import './Requests.css'
+import EditRequest from "../EditRequest/EditRequest";
 
 function Requests() {
     const { user } = useContext(UserContext)
     const [Allrequests, setAllRequests] = useState([])
+
     useEffect(() => {
         const getAllRequests = async () => {
             try {
@@ -32,7 +34,8 @@ function Requests() {
         <div className="request-cards">
             {Allrequests?.map((request, index) => {
                 return <RequestCard key={index} request={request}
-                    handleDeleteReq={handleDeleteReq} />
+                    handleDeleteReq={handleDeleteReq}
+                />
             })
             }</div>
     </>)
