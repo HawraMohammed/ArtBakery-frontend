@@ -12,6 +12,7 @@ import Landing from './components/Landing/Landing'
 // Context
 import { UserContext } from './contexts/UserContext';
 import RequestOrder from './components/RequestOrder/RequestOrder';
+import Requests from './components/Requests/Requests';
 
 const App = () => {
   const { user } = useContext(UserContext)
@@ -22,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/request' element={<RequestOrder />} />
+        <Route path='/requests' element={<Requests />} />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
       </Routes>

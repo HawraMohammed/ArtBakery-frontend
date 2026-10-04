@@ -16,4 +16,45 @@ const getAllRequests = async () => {
         console.log(err)
     }
 }
-export default { getAllRequests }
+const createRequest = async (requestData) => {
+    try {
+        const res = await fetch(`${BASE_URL}`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(requestData),
+
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+const deleteRequest = async (requestId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${requestId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            }
+        );
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+export default { getAllRequests, createRequest, deleteRequest }

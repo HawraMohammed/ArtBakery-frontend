@@ -1,0 +1,107 @@
+.request-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+}
+
+.request-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.request-category {
+    background: #f5e6d3;
+    color: #7a4e2d;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.request-status {
+    color: #b7791f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.request-card h3 {
+    margin: 8px 0;
+}
+
+.request-description {
+    color: #666;
+    line-height: 1.5;
+}
+
+.request-details {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.request-details div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.request-details strong {
+    font-size: 13px;
+    color: #777;
+}
+
+.request-details span {
+    font-size: 14px;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.request-actions button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.accept-button {
+    background: #dff2e3;
+}
+
+.reject-button {
+    background: #f8dddd;
+}
+
+@media (max-width: 600px) {
+    .request-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .request-card-header {
+        align-items: flex-start;
+    }
+
+    .request-card h3 {
+        font-size: 18px;
+    }
+
+    .request-details {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .request-actions {
+        flex-direction: column;
+    }
+
+    .request-actions button {
+        width: 100%;
+    }
+}

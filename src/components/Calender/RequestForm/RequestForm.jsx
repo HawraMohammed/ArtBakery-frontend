@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import requestService from "../../../services/requestService";
 
 function RequestForm({ requestedDate, onCancel }) {
     const navigate = useNavigate();
@@ -17,7 +18,10 @@ function RequestForm({ requestedDate, onCancel }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-            const newRequest = await newRequest(formData);
+            await requestService.createRequest({
+                ...formData,
+                requestedDate
+            })
             navigate('/')
         } catch (error) {
             console.log(error.message)

@@ -35,6 +35,10 @@ const NavBar = () => {
             <Link to="/request" className="nav-link">
               Request Order
             </Link>
+            <Link to="/requests" className="nav-link">
+              My Requests
+            </Link>
+
 
             <Link to="/orders" className="nav-link">
               My Orders
