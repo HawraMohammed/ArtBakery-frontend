@@ -4,21 +4,16 @@
     justify-content: center;
     align-items: center;
     padding: 30px 15px;
-
-    background: linear-gradient(135deg,
-            #fff8f2,
-            #fcecef);
 }
 
 .auth-card {
     width: 100%;
     max-width: 420px;
     padding: 40px;
-
     background: #ffffff;
     border: none;
     border-radius: 24px;
-
+    overflow: hidden;
     box-shadow: 0 15px 40px rgba(90, 55, 40, 0.12);
 }
 
@@ -144,4 +139,25 @@
 
 .auth-cancel:hover {
     background: #f8eee8;
+}
+
+.form-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #D8B8A8;
+    border-radius: 8px;
+    background-color: #FFF8EE;
+    color: #4A3028;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-select:focus {
+    border-color: #B97850;
+    box-shadow: 0 0 0 2px rgba(185, 120, 80, 0.15);
+}
+
+.form-select option {
+    background-color: #FFF8EE;
+    color: #4A3028;
 }
