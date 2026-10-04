@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router';
+import './App.css'
 
 // Components
 import NavBar from './components/NavBar/NavBar';
@@ -10,6 +11,7 @@ import Landing from './components/Landing/Landing'
 
 // Context
 import { UserContext } from './contexts/UserContext';
+import RequestOrder from './components/RequestOrder/RequestOrder';
 
 const App = () => {
   const { user } = useContext(UserContext)
@@ -18,7 +20,8 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path='/' element={user ? <Dashboard /> : <Landing/> } />
+        <Route path='/' element={<Landing />} />
+        <Route path='/request' element={<RequestOrder />} />
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
       </Routes>

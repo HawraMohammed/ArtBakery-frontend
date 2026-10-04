@@ -1,8 +1,7 @@
 // SignUpForm.jsx
 
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router';
-
+import { Link, Links, useNavigate } from 'react-router';
 // Services
 import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
@@ -16,6 +15,7 @@ const SignUpForm = (props) => {
     username: '',
     password: '',
     passwordConf: '',
+    phone: ''
   });
 
   const { username, password, passwordConf } = formData;
@@ -43,47 +43,74 @@ const SignUpForm = (props) => {
 
   return (
     <main>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='text'
-            id='name'
-            value={username}
-            name='username'
-            onChange={handleChange}
-            required
-          />
+      <div className="auth-page">
+        <div className="auth-card">
+          <div className="auth-logo">ARTBAKERY</div>
+
+          <h1>Create Account 🍪</h1>
+          <p className="auth-subtitle">Join our cookie family</p>
+          <p>{message}</p>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor='username' className="form-label">Username:</label>
+              <input
+                type='text'
+                id='name'
+                value={username}
+                name='username'
+                onChange={handleChange}
+                required
+                className="form-control auth-input"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor='password' className="form-label">Password:</label>
+              <input
+                type='password'
+                id='password'
+                value={password}
+                name='password'
+                onChange={handleChange}
+                required
+                className="form-control auth-input"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor='confirm' className="form-label">Confirm Password:</label>
+              <input
+                type='password'
+                id='confirm'
+                value={passwordConf}
+                name='passwordConf'
+                onChange={handleChange}
+                required
+                className="form-control auth-input"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor='phone' className="form-label">Phone number:</label>
+              <input
+                type='phone'
+                autoComplete='off'
+                id='phone'
+                value={formData.phone}
+                name='phone'
+                onChange={handleChange}
+                required
+                className="form-control auth-input"
+              />
+            </div>
+            <div className="auth-buttons">
+              <button className="auth-button" disabled={isFormInvalid()}>Sign Up</button>
+              <button className="auth-cancel" onClick={() => navigate('/')}>Cancel</button>
+            </div>
+          </form>
+          <p className="auth-switch">
+            Already have an account?{" "}
+            <Link to="/sign-in">Sign In</Link>
+          </p>
         </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            name='password'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='confirm'>Confirm Password:</label>
-          <input
-            type='password'
-            id='confirm'
-            value={passwordConf}
-            name='passwordConf'
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
-        </div>
-      </form>
+      </div>
     </main>
   );
 };
