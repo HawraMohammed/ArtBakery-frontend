@@ -109,7 +109,6 @@ const NavBar = () => {
               <Link
                 to="/"
                 className="mobile-nav-link"
-                data-bs-dismiss="offcanvas"
               >
                 Home
               </Link>
@@ -117,7 +116,6 @@ const NavBar = () => {
               <Link
                 to="/posts"
                 className="mobile-nav-link"
-                data-bs-dismiss="offcanvas"
               >
                 Gallery
               </Link>
@@ -125,15 +123,19 @@ const NavBar = () => {
               <Link
                 to="/request"
                 className="mobile-nav-link"
-                data-bs-dismiss="offcanvas"
+
               >
                 Request Order
               </Link>
-
+              <Link
+                to="/requests"
+                className="mobile-nav-link"
+              >
+                My Requests
+              </Link>
               <Link
                 to="/orders"
                 className="mobile-nav-link"
-                data-bs-dismiss="offcanvas"
               >
                 My Orders
               </Link>
@@ -149,9 +151,7 @@ const NavBar = () => {
                   <Link
                     to="/"
                     onClick={handleSignOut}
-                    className="mobile-auth-signout"
-                    data-bs-dismiss="offcanvas"
-                  >
+                    className="mobile-auth-signout"                  >
                     Sign Out
                   </Link>
                 </>
@@ -159,16 +159,13 @@ const NavBar = () => {
                 <>
                   <Link
                     to="/sign-up"
-                    className="mobile-auth-signup"
-                    data-bs-dismiss="offcanvas"
-                  >
+                    className="mobile-auth-signup">
                     Sign Up
                   </Link>
 
                   <Link
                     to="/sign-in"
                     className="mobile-auth-signin"
-                    data-bs-dismiss="offcanvas"
                   >
                     Sign In
                   </Link>

@@ -12,14 +12,6 @@ function Calender({ onDateSelect }) {
     const [weekOrders, setWeekOrders] = useState({});
     const fetchedRange = useRef(null);
 
-
-    const today = new Date();
-    const currentMonthStart = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        1
-    );
-
     const getWeekStart = (date) => {
         const d = new Date(date);
         const day = d.getDay();

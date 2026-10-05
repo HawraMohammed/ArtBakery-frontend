@@ -85,7 +85,7 @@ function RequestForm({ requestedDate, onCancel }) {
                         </div>
                         <div className="auth-buttons">
                             <button className="auth-button" disabled={isFormInvalid()}>Request</button>
-                            <button className="auth-cancel" onClick={onCancel}>Cancel</button>
+                            <button type="button" className="auth-cancel" onClick={onCancel}>Cancel</button>
                         </div>
                     </form>
                 </div>

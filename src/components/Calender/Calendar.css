@@ -48,3 +48,40 @@
     background-color: #F5D9D3;
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .calendar-container {
+        width: 95%;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .fc .fc-toolbar-title {
+        font-size: 18px;
+    }
+
+    .fc-button {
+        font-size: 12px !important;
+        padding: 5px 8px !important;
+    }
+
+    .fc .fc-daygrid-day-number {
+        font-size: 14px;
+    }
+
+    .fc .fc-daygrid-day {
+        min-height: 45px;
+    }
+
+    .fc .fc-toolbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .fc .fc-toolbar-chunk {
+        display: flex;
+        align-items: center;
+    }
+}

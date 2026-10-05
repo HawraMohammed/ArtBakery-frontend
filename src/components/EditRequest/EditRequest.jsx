@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import requestService from "../../services/requestService";
 
 
-function EditRequest() {
-    const { requestId } = useParams();
-    const navigate = useNavigate();
+function EditRequest({ editReq, onCancel }) {
     const [formData, setFormData] = useState({
-        title: "",
-        description: "",
-        category: "",
-        requestedDate: "",
+        title: editReq.title,
+        description: editReq.description,
+        category: editReq.category,
     });
-    const { title, description, category, requestedDate } = formData;
+    const { title, description, category } = formData;
 
 
-    useEffect(() => {
-        async function getRequest() {
-            const data = await requestService.getRequest(requestId);
-            setFormData(data)
-        }
-        getRequest();
-    }, [requestId]);
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -30,8 +20,8 @@ function EditRequest() {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-            await requestService.updateRequest(formData, requestId)
-            navigate('/requests')
+            await requestService.updateRequest(formData, editReq._id)
+            onCancel()
         } catch (error) {
             console.log(error.message)
         }
@@ -88,13 +78,13 @@ function EditRequest() {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor='confirm' className="form-label">Requested Date: {new Date(requestedDate).toLocaleDateString()}</label>
+                            <label htmlFor='confirm' className="form-label">Requested Date: {new Date(editReq.requestedDate).toLocaleDateString()}</label>
 
 
                         </div>
                         <div className="auth-buttons">
-                            <button className="auth-button" disabled={isFormInvalid()}>Request</button>
-                            <button className="auth-cancel" onClick={() => navigate('/requests')}>Cancel</button>
+                            <button className="auth-button" disabled={isFormInvalid()}>Edit Request</button>
+                            <button type="button" className="auth-cancel" onClick={onCancel}>Cancel</button>
                         </div>
                     </form>
                 </div>

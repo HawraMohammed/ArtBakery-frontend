@@ -8,6 +8,8 @@ import EditRequest from "../EditRequest/EditRequest";
 function Requests() {
     const { user } = useContext(UserContext)
     const [Allrequests, setAllRequests] = useState([])
+    const [editReq, setEditReq] = useState(null)
+
 
     useEffect(() => {
         const getAllRequests = async () => {
@@ -30,11 +32,16 @@ function Requests() {
 
 
     return (<>
+        {editReq && (
+            <div className="form-overlay">
+                <EditRequest editReq={editReq}
+                    onCancel={() => setEditReq(null)} /></div>)}
         <h2>All requests:</h2>
         <div className="request-cards">
             {Allrequests?.map((request, index) => {
                 return <RequestCard key={index} request={request}
                     handleDeleteReq={handleDeleteReq}
+                    onEdit={() => setEditReq(request)}
                 />
             })
             }</div>
