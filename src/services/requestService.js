@@ -85,6 +85,30 @@ const updateRequest = async (requestData, requestId) => {
     }
 }
 
+const acceptRequest = async (requestId, requestData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${requestId}/accept`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(requestData),
+
+            }
+        );
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
 const deleteRequest = async (requestId) => {
     try {
         const res = await fetch(`${BASE_URL}/${requestId}`,
@@ -100,4 +124,4 @@ const deleteRequest = async (requestId) => {
         console.log(err)
     }
 }
-export default { getAllRequests, getRequest, createRequest, updateRequest, deleteRequest }
+export default { getAllRequests, getRequest, createRequest, updateRequest, acceptRequest, deleteRequest }

@@ -33,4 +33,72 @@ const getCalendarOrders = async (startDate, endDate) => {
         console.log(err)
     }
 }
-export default { getAllOrders, getCalendarOrders }
+
+const updateOrderPayment = async (orderData, orderId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${orderId}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(orderData),
+
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+const updateOrderAddress = async (orderData, orderId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${orderId}/address`,
+            {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(orderData),
+
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+const deleteOrder = async (requestId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${requestId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            }
+        );
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+export default { getAllOrders, getCalendarOrders, updateOrderPayment, updateOrderAddress, deleteOrder }

@@ -31,6 +31,15 @@ function Requests() {
         catch (err) { console.log(err.message) }
     }
 
+    const handleAcceptReq = async (requestId, requestData) => {
+        try {
+            await requestService.acceptRequest(requestId, requestData);
+            setAllRequests(Allrequests.filter((request) => request._id !== requestId))
+
+        }
+        catch (err) { console.log(err.message) }
+    }
+
     const handleUpdateRequest = (updatedRequest) => {
         setAllRequests(prev =>
             prev.map(request =>
@@ -49,6 +58,8 @@ function Requests() {
                 <RequestCard
                     request={showReq}
                     handleDeleteReq={() => { setShow(null); handleDeleteReq(showReq._id) }}
+                    handleAcceptReq={() => { setShow(null); handleAcceptReq(showReq._id, showReq) }}
+
                     onEdit={() => {
                         setShow(null);
                         setEditReq(showReq);
@@ -68,6 +79,7 @@ function Requests() {
             {Allrequests?.map((request, index) => {
                 return <RequestCard key={index} request={request}
                     handleDeleteReq={handleDeleteReq}
+                    handleAcceptReq={handleAcceptReq}
                     onEdit={() => setEditReq(request)}
                     onShow={() => setShow(request)}
                 />
