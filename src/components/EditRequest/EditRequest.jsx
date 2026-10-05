@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import requestService from "../../services/requestService";
 
 
-function EditRequest({ editReq, onCancel }) {
+function EditRequest({ editReq, onCancel, handleUpdateRequest }) {
     const [formData, setFormData] = useState({
         title: editReq.title,
         description: editReq.description,
@@ -20,8 +20,8 @@ function EditRequest({ editReq, onCancel }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-            await requestService.updateRequest(formData, editReq._id)
-            onCancel()
+            const updatedReq = await requestService.updateRequest(formData, editReq._id)
+            handleUpdateRequest(updatedReq)
         } catch (error) {
             console.log(error.message)
         }

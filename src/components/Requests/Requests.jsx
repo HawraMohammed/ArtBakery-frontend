@@ -9,6 +9,7 @@ function Requests() {
     const { user } = useContext(UserContext)
     const [Allrequests, setAllRequests] = useState([])
     const [editReq, setEditReq] = useState(null)
+    const [showReq, setShow] = useState(null);
 
 
     useEffect(() => {
@@ -30,18 +31,45 @@ function Requests() {
         catch (err) { console.log(err.message) }
     }
 
+    const handleUpdateRequest = (updatedRequest) => {
+        setAllRequests(prev =>
+            prev.map(request =>
+                request._id === updatedRequest._id
+                    ? updatedRequest
+                    : request
+            )
+        );
+
+        setEditReq(null);
+    };
 
     return (<>
+        {showReq && (
+            <div className="form-overlay single-request">
+                <RequestCard
+                    request={showReq}
+                    handleDeleteReq={() => { setShow(null); handleDeleteReq(showReq._id) }}
+                    onEdit={() => {
+                        setShow(null);
+                        setEditReq(showReq);
+                    }}
+                    onCancel={() => setShow(null)}
+                />
+            </div>
+        )}
         {editReq && (
             <div className="form-overlay">
                 <EditRequest editReq={editReq}
-                    onCancel={() => setEditReq(null)} /></div>)}
+                    onCancel={() => setEditReq(null)}
+                    handleUpdateRequest={handleUpdateRequest} /></div>)}
+
         <h2>All requests:</h2>
         <div className="request-cards">
             {Allrequests?.map((request, index) => {
                 return <RequestCard key={index} request={request}
                     handleDeleteReq={handleDeleteReq}
                     onEdit={() => setEditReq(request)}
+                    onShow={() => setShow(request)}
                 />
             })
             }</div>

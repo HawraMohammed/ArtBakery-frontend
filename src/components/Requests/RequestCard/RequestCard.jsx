@@ -2,15 +2,21 @@ import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 import './RequestCard.css'
 
-function RequestCard({ request, handleDeleteReq, onEdit }) {
+function RequestCard({ request, handleDeleteReq, onEdit, onShow, onCancel }) {
     const { user } = useContext(UserContext)
     return (
-        <div className="request-card">
+        <div className="request-card" onClick={onShow}>
             <div className="request-card-header">
-                <button onClick={onEdit}
-                    className="edit-button">
-                    <i className="bi bi-pencil"></i>
-                </button>
+                <div className="card-buttons">
+                    {user.role !== "admin" && (<button onClick={(e) => { e.stopPropagation(); onEdit() }}
+                        className="edit-button">
+                        <i className="bi bi-pencil"></i>
+                    </button>)}
+                    {onCancel && (<button onClick={onCancel}
+                        className="cancel-button">
+                        <i className="bi bi-x-lg"></i>
+                    </button>)}
+                </div>
                 <span className="request-category">
                     {request.category}
                 </span>
@@ -18,8 +24,7 @@ function RequestCard({ request, handleDeleteReq, onEdit }) {
             </div>
 
             <h3>{request.title}</h3>
-
-
+            {!onShow && <p>{request.description}</p>}
             <div className="request-details">
                 <div>
                     <strong>Requested date</strong>
@@ -41,7 +46,7 @@ function RequestCard({ request, handleDeleteReq, onEdit }) {
                     </button>)}
 
                 <button className="reject-button"
-                    onClick={() => handleDeleteReq(request._id)}>
+                    onClick={(e) => { e.stopPropagation(); handleDeleteReq(request._id) }}>
                     {user.role == "admin" ? 'Reject' : 'Withdraw'}
                 </button>
             </div>

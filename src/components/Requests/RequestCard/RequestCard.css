@@ -79,11 +79,25 @@
     background: #f8dddd;
 }
 
+.single-request {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
 
-.edit-button {
+.card-buttons {
     position: absolute;
     top: 12px;
     right: 12px;
+
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.edit-button,
+.cancel-button {
+    position: static;
 
     width: 36px;
     height: 36px;
@@ -95,23 +109,31 @@
     border: none;
     border-radius: 50%;
     background: #fff8e7;
-
     color: #777;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
     cursor: pointer;
     opacity: 0;
     transition: all 0.2s ease;
+
 }
 
 .request-card:hover .edit-button {
     opacity: 1;
+    margin-left: auto;
 }
 
-.edit-button:hover {
+.edit-button:hover,
+.cancel-button:hover {
     background: #f5e6c8;
     color: #5190F5;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.single-request .card-buttons .cancel-button,
+.single-request .card-buttons .edit-button {
+    opacity: 1;
 }
 
 
@@ -142,7 +164,8 @@
         width: 100%;
     }
 
-    .edit-button {
+    .edit-button,
+    .cancel-button {
         opacity: 1;
     }
 
