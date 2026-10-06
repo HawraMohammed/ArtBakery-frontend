@@ -17,15 +17,15 @@ const getAllPosts = async () => {
     }
 }
 
-const getRequest = async (requestId) => {
+const getPost = async (postId) => {
     try {
-        const res = await fetch(`${BASE_URL}/${requestId}`,
+        const res = await fetch(`${BASE_URL}/${postId}`,
             {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             }
         );
         if (!res.ok) {
-            throw new Error(`Failed to fetch requests: ${res.status}`);
+            throw new Error(`Failed to fetch post: ${res.status}`);
         }
         return await res.json();
     }
@@ -61,59 +61,39 @@ const createPost = async (postData) => {
     }
 }
 
-const updateRequest = async (requestData, requestId) => {
+
+const updatePost = async (postData, postId) => {
     try {
-        const res = await fetch(`${BASE_URL}/${requestId}`,
+
+        const res = await fetch(`${BASE_URL}/${postId}`,
             {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
                 },
 
-                body: JSON.stringify(requestData),
+                body: postData,
 
             }
         );
 
         if (!res.ok) {
-            throw new Error(res.json());
+            const error = await res.json()
+            throw new Error(error.message || error);
         }
 
         return await res.json();
     }
-    catch (err) {
-        console.log(err)
+    catch (error) {
+
+        console.log(error)
     }
 }
 
-const acceptRequest = async (requestId, requestData) => {
+
+const deletePost = async (postId) => {
     try {
-        const res = await fetch(`${BASE_URL}/${requestId}/accept`,
-            {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
-                },
-
-                body: JSON.stringify(requestData),
-
-            }
-        );
-        if (!res.ok) {
-            throw new Error(res.json());
-        }
-
-        return await res.json();
-    }
-    catch (err) {
-        console.log(err)
-    }
-}
-const deleteRequest = async (requestId) => {
-    try {
-        const res = await fetch(`${BASE_URL}/${requestId}`,
+        const res = await fetch(`${BASE_URL}/${postId}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -126,4 +106,4 @@ const deleteRequest = async (requestId) => {
         console.log(err)
     }
 }
-export default { getAllPosts, createPost }
+export default { getAllPosts, getPost, createPost, updatePost, deletePost }

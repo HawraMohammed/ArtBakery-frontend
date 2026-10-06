@@ -113,7 +113,7 @@ function PostForm() {
 
                         </div>
                         <div className="auth-buttons">
-                            <button className="auth-button" disabled={isFormInvalid()}>Edit Request</button>
+                            <button className="auth-button" disabled={isFormInvalid()}>Add Post</button>
                             <button type="button" className="auth-cancel" onClick={() => navigate('/posts')}>Cancel</button>
                         </div>
                     </form>
