@@ -7,6 +7,8 @@ import './Gallery.css'
 
 function Gallery() {
     const [posts, setPosts] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState("All")
+
     const { user } = useContext(UserContext)
     useEffect(() => {
         const getAllPosts = async () => {
@@ -18,7 +20,10 @@ function Gallery() {
         }
         if (user) getAllPosts()
     }, [user])
-
+    const filteredPosts =
+        selectedCategory === "All"
+            ? posts
+            : posts.filter(post => post.category === selectedCategory);
 
     return (<>
         <div className="posts-page">
@@ -27,8 +32,28 @@ function Gallery() {
                     <i className="bi bi-plus-lg"></i>
                     New Post
                 </Link>  </div>
+
+            <div className="category-filter">
+                <label htmlFor="category">Filter by category:</label>
+
+                <select
+                    id="category"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="All">All</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Baby">Baby</option>
+                    <option value="Graduation">Graduation</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Gift">Gift</option>
+                    <option value="Corporate">Corporate</option>
+                    <option value="Religious">Religious</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
             <div className="posts-container">
-                {posts.map((post) => {
+                {filteredPosts.map((post) => {
                     return <PostCard post={post} key={post._id}
                         postImage={post.images[0]}
                     />

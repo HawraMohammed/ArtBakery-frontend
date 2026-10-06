@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router"
 import postService from "../../services/postService";
 import './PostDetails.css'
+import { UserContext } from "../../contexts/UserContext";
 
 function PostDetials({ handleDeletePost }) {
+    const { user } = useContext(UserContext)
     const { postId } = useParams();
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
@@ -75,24 +77,24 @@ function PostDetials({ handleDeletePost }) {
                         <span className="post-details-category">
                             {post.category}
                         </span>
+                        {user?.role === "admin" && (
+                            <div className="post-details-actions">
+                                <button
+                                    type="button"
+                                    onClick={() => navigate(`/posts/${postId}/edit`)}
+                                    className="post-edit-button"
+                                >
+                                    <i className="bi bi-pencil"></i>
+                                </button>
 
-                        <div className="post-details-actions">
-                            <button
-                                type="button"
-                                onClick={() => navigate(`/posts/${postId}/edit`)}
-                                className="post-edit-button"
-                            >
-                                <i className="bi bi-pencil"></i>
-                            </button>
-
-                            <button
-                                type="button"
-                                onClick={() => handleDeletePost(postId)}
-                                className="post-delete-button"
-                            >
-                                <i className="bi bi-trash"></i>
-                            </button>
-                        </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDeletePost(postId)}
+                                    className="post-delete-button"
+                                >
+                                    <i className="bi bi-trash"></i>
+                                </button>
+                            </div>)}
                     </div>
 
                     <h1>{post.title}</h1>
