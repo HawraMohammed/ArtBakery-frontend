@@ -1,15 +1,25 @@
 import { useState } from "react";
+import postService from "../../services/postService";
 import { useNavigate } from "react-router";
-import requestService from "../../../services/requestService";
 
-function RequestForm({ requestedDate, onCancel }) {
+
+function PostForm() {
+    const initialState = { title: "", content: "", category: "Birthday" }
+    const [formData, setFormData] = useState(initialState);
+    const { title, content, category } = formData;
+
+    const [images, setSelectedFiles] = useState([]);
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        category: 'Birthday',
-    });
-    const { title, description, category } = formData;
+
+    const handlePicturesChange = (e) => {
+        const newFiles = Array.from(e.target.files);
+
+        setSelectedFiles((prevFiles) => [
+            ...prevFiles,
+            ...newFiles
+        ]);
+    };
+
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -18,11 +28,23 @@ function RequestForm({ requestedDate, onCancel }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         try {
-            await requestService.createRequest({
-                ...formData,
-                requestedDate
-            })
-            navigate('/requests')
+
+            const formData = new FormData();
+
+            formData.append("title", title);
+            formData.append("content", content);
+            formData.append("category", category);
+
+            images.forEach((image) => {
+                formData.append("images", image);
+            });
+
+
+            await postService.createPost(formData);
+            setFormData(initialState)
+            setSelectedFiles([])
+            navigate('/posts');
+
         } catch (error) {
             console.log(error.message)
         }
@@ -30,16 +52,16 @@ function RequestForm({ requestedDate, onCancel }) {
     };
 
     const isFormInvalid = () => {
-        return !(title && description);
+        return !(title && content && images.length > 0);
     };
 
     return (
         <main>
             <div className="auth-page">
                 <div className="auth-card">
-                    <div className="auth-logo">New Request</div>
+                    <div className="auth-logo">Create Post</div>
 
-                    <h1>Create Request 🍪</h1>
+                    <h1>Create Post 🍪</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor='title' className="form-label">Title:</label>
@@ -54,12 +76,12 @@ function RequestForm({ requestedDate, onCancel }) {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor='description' className="form-label">Description:</label>
+                            <label htmlFor='content' className="form-label">Content:</label>
                             <textarea
-                                type='description'
-                                id='description'
-                                value={description}
-                                name='description'
+                                type='content'
+                                id='content'
+                                value={content}
+                                name='content'
                                 onChange={handleChange}
                                 required
                                 className="form-control auth-input"
@@ -79,13 +101,20 @@ function RequestForm({ requestedDate, onCancel }) {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label htmlFor='confirm' className="form-label">Requested Date: {requestedDate.toLocaleDateString()}</label>
-
+                            <label htmlFor='confirm' className="form-label">Images</label>
+                            <input
+                                type="file"
+                                id='images'
+                                name='images'
+                                onChange={handlePicturesChange}
+                                required
+                                className="form-control auth-input"
+                            />
 
                         </div>
                         <div className="auth-buttons">
-                            <button className="auth-button" disabled={isFormInvalid()}>Request</button>
-                            <button type="button" className="auth-cancel" onClick={onCancel}>Cancel</button>
+                            <button className="auth-button" disabled={isFormInvalid()}>Edit Request</button>
+                            <button type="button" className="auth-cancel" onClick={() => navigate('/posts')}>Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -93,4 +122,4 @@ function RequestForm({ requestedDate, onCancel }) {
         </main>
     )
 }
-export default RequestForm
+export default PostForm

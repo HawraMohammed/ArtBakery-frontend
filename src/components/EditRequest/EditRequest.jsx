@@ -53,7 +53,7 @@ function EditRequest({ editReq, onCancel, handleUpdateRequest }) {
                         </div>
                         <div className="mb-3">
                             <label htmlFor='description' className="form-label">Description:</label>
-                            <input
+                            <textarea
                                 type='description'
                                 id='description'
                                 value={description}
