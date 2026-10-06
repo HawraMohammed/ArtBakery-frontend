@@ -85,6 +85,53 @@ const updateOrderAddress = async (orderData, orderId) => {
         console.log(err)
     }
 }
+const createPayment = async (orderId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${orderId}/payment`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        if (!res.ok) {
+            const error = await res.json();
+            throw new Error(error.message || error);
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+
+const checkPayment = async (orderId, tapId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${orderId}/payment?tap_id=${tapId}`,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
 
 const deleteOrder = async (requestId) => {
     try {
@@ -101,4 +148,4 @@ const deleteOrder = async (requestId) => {
         console.log(err)
     }
 }
-export default { getAllOrders, getCalendarOrders, updateOrderPayment, updateOrderAddress, deleteOrder }
+export default { getAllOrders, getCalendarOrders, updateOrderPayment, updateOrderAddress, createPayment, checkPayment, deleteOrder }

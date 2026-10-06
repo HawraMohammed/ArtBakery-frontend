@@ -10,6 +10,8 @@ function Orders() {
     const [AllOrders, setAllOrders] = useState([])
     const [showOrder, setShow] = useState(null);
     const [editOrder, setEditOrder] = useState(null);
+    const [message, setMessage] = useState(null);
+
 
 
 
@@ -44,12 +46,63 @@ function Orders() {
         setEditOrder(null);
     };
 
+    const handlePayment = async (orderId) => {
+        try {
+            const data = await orderServices.createPayment(orderId)
+
+            window.location.href = data.paymentUrl;
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const checkPaymentResult = async (orderId, tapId) => {
+        try {
+            const updatedOrder = await orderServices.checkPayment(orderId, tapId)
+
+            if (updatedOrder.paymentStatus === "paid") {
+                setMessage("Payment successful!");
+            } else {
+                setMessage("Payment failed.");
+            }
+            handleUpdateOrder(updatedOrder)
+
+            setTimeout(() => {
+                setMessage(null);
+            }, 3000);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get("orderId");
+        const tapId = params.get("tap_id");
+
+
+        if (orderId && tapId) {
+            checkPaymentResult(orderId, tapId);
+        }
+    }, []);
+
     return (<>
+        {message && (<div className="payment-message">
+            <i
+                className={`bi ${message === "Payment successful!"
+                    ? "bi-check-circle-fill success-icon"
+                    : "bi-x-circle-fill failed-icon"
+                    }`}
+            ></i>
+
+            <span>{message}</span>
+        </div>)}
         {showOrder && (
             <div className="form-overlay single-request">
                 <OrderCard
                     order={showOrder}
                     handleDeleteOrder={() => { setShow(null); handleDeleteOrder(showOrder._id) }}
+                    handlePayment={() => { setShow(null); handlePayment(showOrder._id) }}
+
                     onEdit={() => {
                         setShow(null);
                         setEditOrder(showOrder);
@@ -68,7 +121,9 @@ function Orders() {
         <div className="request-cards">
             {AllOrders?.map((order, index) => {
                 return <OrderCard key={index} order={order}
-                    handleDeleteOrder={handleDeleteOrder}
+                    handleDeleteOrder={() => handleDeleteOrder(order._id)}
+                    handlePayment={() => handlePayment(order._id)}
+
                     onEdit={() => {
                         setEditOrder(order)
                     }}

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 import './OrderCard.css'
 
-function OrderCard({ order, handleDeleteOrder, onEdit, onShow, onCancel }) {
+function OrderCard({ order, handleDeleteOrder, handlePayment, onEdit, onShow, onCancel }) {
     const { user } = useContext(UserContext)
     return (
         <div className="request-card" onClick={onShow}>
@@ -55,12 +55,15 @@ function OrderCard({ order, handleDeleteOrder, onEdit, onShow, onCancel }) {
             </div>
 
             <div className="request-actions">
-                {user.role !== "admin" && (
-                    <button className="accept-button">
+                {user.role !== "admin" && order.paymentStatus === 'unpaid' && (
+                    <button className="accept-button"
+                        onClick={(e) => { e.stopPropagation(); handlePayment() }}
+                        disabled={order.price === null}
+                    >
                         Pay Now
                     </button>)}
                 <button className="reject-button"
-                    onClick={(e) => { e.stopPropagation(); handleDeleteOrder(order._id) }}>
+                    onClick={(e) => { e.stopPropagation(); handleDeleteOrder() }}>
                     Delete order
                 </button>
             </div>

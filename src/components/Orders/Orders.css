@@ -8,6 +8,87 @@
     box-sizing: border-box;
 }
 
+.payment-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: max-content;
+    max-width: 90%;
+    padding: 30px 50px;
+
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    z-index: 2000;
+}
+
+.payment-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: max-content;
+    max-width: 90%;
+    padding: 35px 50px;
+
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    z-index: 2000;
+}
+
+.payment-message i {
+    font-size: 3rem;
+}
+
+.success-icon {
+    color: #70b77e;
+}
+
+.failed-icon {
+    color: #d96b6b;
+}
+
+@media (max-width: 576px) {
+    .payment-message {
+        width: 85%;
+        max-width: 350px;
+        padding: 30px 20px;
+        font-size: 1.2rem;
+    }
+
+    .payment-message i {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-message {
+        width: 85%;
+        max-width: 350px;
+        padding: 25px 20px;
+        font-size: 1.2rem;
+    }
+}
+
 @media (max-width: 1100px) {
     .request-cards {
         grid-template-columns: repeat(2, minmax(250px, 500px));
@@ -19,5 +100,12 @@
         grid-template-columns: minmax(0, 1fr);
         padding: 15px;
         gap: 15px;
+    }
+
+    .payment-message {
+        width: 85%;
+        max-width: 350px;
+        padding: 18px 20px;
+        font-size: 1rem;
     }
 }

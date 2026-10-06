@@ -32,16 +32,17 @@ const NavBar = () => {
               Gallery
             </Link>
 
-            <Link to="/request" className="nav-link">
+            {user?.role !== 'admin' && (<Link to="/request" className="nav-link">
               Request Order
-            </Link>
+            </Link>)}
+
             <Link to="/requests" className="nav-link">
-              My Requests
+              {user?.role !== 'admin' ? "My Requests" : "Requests"}
             </Link>
 
 
             <Link to="/orders" className="nav-link">
-              My Orders
+              {user?.role !== 'admin' ? "My Orders" : "Orders"}
             </Link>
           </div>
 
@@ -120,24 +121,24 @@ const NavBar = () => {
                 Gallery
               </Link>
 
-              <Link
+              {user?.role !== 'admin' && (<Link
                 to="/request"
                 className="mobile-nav-link"
 
               >
                 Request Order
-              </Link>
+              </Link>)}
               <Link
                 to="/requests"
                 className="mobile-nav-link"
               >
-                My Requests
+                {user?.role !== 'admin' ? "My Requests" : "Requests"}
               </Link>
               <Link
                 to="/orders"
                 className="mobile-nav-link"
               >
-                My Orders
+                {user?.role !== 'admin' ? "My Orders" : "Orders"}
               </Link>
             </div>
 

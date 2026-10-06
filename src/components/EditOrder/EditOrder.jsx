@@ -97,13 +97,7 @@ function EditOrder({ editOrder, onCancel, handleUpdateOrder }) {
                             />)}
                         </div>
                         <div className="mb-3">
-                            <label htmlFor='confirm' className="form-label">Price:{user?.role !== 'admin' ? editOrder.price ?? "price will be determined after negotiation" : ''}</label>
-
-                            {user?.role === 'admin' && (
-                                <select type='category' name="paymentStatus" id='paymentStatus' value={paymentStatus} onChange={handleChange} className="form-control auth-input">
-                                    <option value="unpaid">unpaid</option>
-                                    <option value="paid">paid</option>
-                                </select>)}
+                            <label htmlFor='confirm' className="form-label">Payment Status: {editOrder.paymentStatus}</label>
 
                         </div>
 
