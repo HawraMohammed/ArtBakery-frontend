@@ -32,18 +32,20 @@ const NavBar = () => {
               Gallery
             </Link>
 
-            {user?.role !== 'admin' && (<Link to="/request" className="nav-link">
+            {user?.role !== 'admin' && (<Link to={user ? "/request" : "/sign-up"} className="nav-link">
               Request Order
             </Link>)}
 
-            <Link to="/requests" className="nav-link">
-              {user?.role !== 'admin' ? "My Requests" : "Requests"}
-            </Link>
+
+            {user &&
+              (<><Link to="/requests" className="nav-link">
+                {user?.role !== 'admin' ? "My Requests" : "Requests"}
+              </Link>
 
 
-            <Link to="/orders" className="nav-link">
-              {user?.role !== 'admin' ? "My Orders" : "Orders"}
-            </Link>
+                <Link to="/orders" className="nav-link">
+                  {user?.role !== 'admin' ? "My Orders" : "Orders"}
+                </Link></>)}
           </div>
 
           {user ? (
@@ -122,24 +124,24 @@ const NavBar = () => {
               </Link>
 
               {user?.role !== 'admin' && (<Link
-                to="/request"
+                to={user ? "/request" : "/sign-up"}
                 className="mobile-nav-link"
 
               >
                 Request Order
               </Link>)}
-              <Link
+              {user && (<><Link
                 to="/requests"
                 className="mobile-nav-link"
               >
                 {user?.role !== 'admin' ? "My Requests" : "Requests"}
               </Link>
-              <Link
-                to="/orders"
-                className="mobile-nav-link"
-              >
-                {user?.role !== 'admin' ? "My Orders" : "Orders"}
-              </Link>
+                <Link
+                  to="/orders"
+                  className="mobile-nav-link"
+                >
+                  {user?.role !== 'admin' ? "My Orders" : "Orders"}
+                </Link></>)}
             </div>
 
             <div className="mobile-auth">

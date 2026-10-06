@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router"
 import postService from "../../services/postService";
 import './PostDetails.css'
 import { UserContext } from "../../contexts/UserContext";
+import CommentCard from "./CommentCard/CommentCard";
+import CommentForm from "./CommentForm/CommentForm";
 
 function PostDetials({ handleDeletePost }) {
     const { user } = useContext(UserContext)
@@ -10,12 +12,14 @@ function PostDetials({ handleDeletePost }) {
     const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [index, setIndex] = useState(0);
-
+    const [comments, setComments] = useState([]);
+    const [editingComment, setEditingComment] = useState(null);
 
     useEffect(() => {
         async function getPost() {
             const post = await postService.getPost(postId);
             setPost(post);
+            setComments(post.comments)
         }
         getPost();
     }, [])
@@ -31,7 +35,36 @@ function PostDetials({ handleDeletePost }) {
         else setIndex(index + 1)
     }
 
+    const handleCommentCreated = (newComment) => {
+        setComments(prevComments => [
+            ...prevComments,
+            newComment
+        ]);
+    };
 
+    const handleCommentUpdated = (updatedComment) => {
+        setComments(prevComments =>
+            prevComments.map(comment =>
+                comment._id === updatedComment._id
+                    ? updatedComment
+                    : comment
+            )
+        );
+
+        setEditingComment(null);
+    };
+
+    const handleCommentDeleted = async (commentId) => {
+        try {
+            await postService.deleteComment(postId, commentId);
+
+            setComments(prevComments =>
+                prevComments.filter(comment => comment._id !== commentId)
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    };
     if (!post) {
         return <p>Loading...</p>;
     }
@@ -114,10 +147,28 @@ function PostDetials({ handleDeletePost }) {
 
             </div>
 
+
             <div className="comments-section">
                 <h2>Comments</h2>
+                {
+                    editingComment ? (
+                        <CommentForm
+                            comment={editingComment}
+                            handleCommentUpdated={handleCommentUpdated}
+                            onCancel={() => setEditingComment(null)}
+                        />
+                    )
+                        :
+                        (<CommentForm handleCommentCreated={handleCommentCreated} />)
 
-                {/* comments will go here */}
+                }
+                {comments?.map((comment) => {
+                    return <CommentCard comment={comment} key={comment._id}
+                        onEdit={setEditingComment}
+                        handleCommentDeleted={handleCommentDeleted}
+
+                    />
+                })}
 
             </div>
 

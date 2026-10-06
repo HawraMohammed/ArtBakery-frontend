@@ -106,4 +106,73 @@ const deletePost = async (postId) => {
         console.log(err)
     }
 }
-export default { getAllPosts, getPost, createPost, updatePost, deletePost }
+
+const createComment = async (commentData, postId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${postId}/comments`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(commentData),
+
+            }
+        );
+
+        if (!res.ok) {
+            throw new Error(res.json());
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+const updateComment = async (commentData, postId, commentId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${postId}/comments/${commentId}`,
+            {
+                method: 'PUT',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify(commentData),
+
+            }
+        );
+
+        if (!res.ok) {
+            const err = await res.json()
+            throw new Error(err.message || err);
+        }
+
+        return await res.json();
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+const deleteComment = async (postId, commentId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${postId}/comments/${commentId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            }
+        );
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+export default { getAllPosts, getPost, createPost, updatePost, deletePost, createComment, updateComment, deleteComment }
