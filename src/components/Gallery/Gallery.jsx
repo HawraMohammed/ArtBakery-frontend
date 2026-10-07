@@ -7,7 +7,7 @@ import './Gallery.css'
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
 
 function Gallery() {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState(null)
     const [selectedCategory, setSelectedCategory] = useState("All")
 
     const { user } = useContext(UserContext)
@@ -27,9 +27,15 @@ function Gallery() {
             : posts.filter(post => post.category === selectedCategory);
 
 
-    if (posts.length === 0) {
+    if (!posts) {
         return <LoadingSpinner />
     }
+    if (posts.length === 0)
+        return (<div className="no-posts-card">
+            <i className="bi bi-images no-posts-icon"></i>
+            <h3>No Posts Yet</h3>
+            <p>There are no posts to show right now. Check back soon for more!</p>
+        </div>)
     return (<>
         <div className="posts-page">
             {user?.role === 'admin' && (<div className="new-post-wrapper">

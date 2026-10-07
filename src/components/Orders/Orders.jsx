@@ -8,7 +8,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function Orders() {
     const { user } = useContext(UserContext)
-    const [AllOrders, setAllOrders] = useState([])
+    const [AllOrders, setAllOrders] = useState(null)
     const [showOrder, setShow] = useState(null);
     const [editOrder, setEditOrder] = useState(null);
     const [message, setMessage] = useState(null);
@@ -87,9 +87,15 @@ function Orders() {
     }, []);
 
 
-    if (AllOrders.length === 0) {
+    if (!AllOrders) {
         return <LoadingSpinner />
     }
+    if (AllOrders.length === 0)
+        return (<div className="no-posts-card">
+            <i className="bi bi-images no-posts-icon"></i>
+            <h3>No orders yet</h3>
+            <p>There are no orders to show right now. Check back soon for more!</p>
+        </div>)
     return (<>
         {message && (<div className="payment-message">
             <i

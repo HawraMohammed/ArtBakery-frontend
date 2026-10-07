@@ -8,7 +8,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function Requests() {
     const { user } = useContext(UserContext)
-    const [Allrequests, setAllRequests] = useState([])
+    const [Allrequests, setAllRequests] = useState(null)
     const [editReq, setEditReq] = useState(null)
     const [showReq, setShow] = useState(null);
 
@@ -53,9 +53,15 @@ function Requests() {
         setEditReq(null);
     };
 
-    if (Allrequests.length === 0) {
+    if (!Allrequests) {
         return <LoadingSpinner />
     }
+    if (Allrequests.length === 0)
+        return (<div className="no-posts-card">
+            <i className="bi bi-images no-posts-icon"></i>
+            <h3>No requests yet</h3>
+            <p>There are no requests to show right now. Check back soon for more!</p>
+        </div>)
     return (<>
         {showReq && (
             <div className="form-overlay single-request">
