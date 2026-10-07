@@ -73,7 +73,7 @@ function EditRequest({ editReq, onCancel, handleUpdateRequest }) {
                                 <option value="Gift">Gift</option>
                                 <option value="Corporate">Corporate</option>
                                 <option value="Religious">Religious</option>
-                                <option value="Others">Others</option>
+                                <option value="Other">Others</option>
                             </select>
                         </div>
                         <div className="mb-3">
