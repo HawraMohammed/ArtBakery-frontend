@@ -74,7 +74,7 @@ function Requests() {
                     onCancel={() => setEditReq(null)}
                     handleUpdateRequest={handleUpdateRequest} /></div>)}
 
-        <h2>All requests:</h2>
+        <h2 className="requests-title">All requests</h2>
         <div className="request-cards">
             {Allrequests?.map((request, index) => {
                 return <RequestCard key={index} request={request}

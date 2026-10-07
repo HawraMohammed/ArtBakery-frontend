@@ -31,26 +31,47 @@ function OrderCard({ order, handleDeleteOrder, handlePayment, onEdit, onShow, on
                     <span>
                         {new Date(order.requestedDate).toLocaleDateString()}
                     </span>
-                    <strong>Price:</strong>
-                    <span>
-                        {order.price ?? "Price will be determined after negotiation"}
-                    </span>
-                    <strong>Payment Status:</strong>
-                    <span>
-                        {order.paymentStatus}
-                    </span>
-                    <strong>Address:</strong>
-                    <span>
-                        <strong>Building:</strong> {order.address?.building ?? "No address is added yet!!"}
-                        <strong>Block:</strong> {order.address?.block ?? "No address is added yet!!"}<br />
-                        <strong>Road:</strong> {order.address?.road ?? "No address is added yet!!"}
-                        <strong>Area:</strong> {order.address?.area ?? "No address is added yet!!"}
-                    </span>
                 </div>
                 {user.role === "admin" && (<div>
                     <strong>Customer</strong>
                     <span>{order.user.username}</span>
                 </div>)}
+                <div className="order-info">
+
+                    <strong>Price:</strong>
+                    <span>
+                        {order.price + " BHD" ?? "Price will be determined after negotiation"}
+                    </span>
+                    <strong>Payment Status:</strong>
+                    <span>
+                        {order.paymentStatus === 'paid' ? <i className="bi bi-check-circle-fill payment-paid"></i> : <i className="payment-unpaid bi bi-clock-fill"></i>}{order.paymentStatus}
+                    </span></div>
+                <div className="order-address">
+                    <strong className="address-title">Address</strong>
+
+                    <div className="address-details">
+                        <div>
+                            <strong>Building</strong>
+                            <span>{order.address?.building ?? "Not added yet"}</span>
+                        </div>
+
+                        <div>
+                            <strong>Block</strong>
+                            <span>{order.address?.block ?? "Not added yet"}</span>
+                        </div>
+
+                        <div>
+                            <strong>Road</strong>
+                            <span>{order.address?.road ?? "Not added yet"}</span>
+                        </div>
+
+                        <div>
+                            <strong>Area</strong>
+                            <span>{order.address?.area ?? "Not added yet"}</span>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
 

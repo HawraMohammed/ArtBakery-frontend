@@ -18,7 +18,7 @@ const NavBar = () => {
 
           <Link to="/" className="nav-logo">
             <img
-              src="/images/bakery.png"
+              src="/images/logo.png"
               alt="ArtBakery"
             />
           </Link>
@@ -95,7 +95,7 @@ const NavBar = () => {
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="mobileMenuLabel">
-              ArtBakery
+              Art Bakery by Kawther
             </h5>
 
             <button

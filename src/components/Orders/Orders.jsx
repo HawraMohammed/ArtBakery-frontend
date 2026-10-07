@@ -117,7 +117,7 @@ function Orders() {
                     onCancel={() => setEditOrder(null)}
                     handleUpdateOrder={handleUpdateOrder} /></div>)}
 
-        <h2>All Orders:</h2>
+        <h2 className="orders-title">All Orders</h2>
         <div className="request-cards">
             {AllOrders?.map((order, index) => {
                 return <OrderCard key={index} order={order}

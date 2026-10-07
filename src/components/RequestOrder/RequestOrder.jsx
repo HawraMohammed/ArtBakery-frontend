@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Calender from "../Calender/Calendar";
 import RequestForm from "../Calender/RequestForm/RequestForm";
-
+import './RequestOrder.css'
 
 function RequestOrder() {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -10,7 +10,7 @@ function RequestOrder() {
 
         <div className="calendar-wrapper">
 
-            <h3>choose a slot</h3>
+            <h2 className="requests-title">Choose a date</h2>
             <Calender onDateSelect={(date) => setSelectedDate(date)} />
 
             {selectedDate && (

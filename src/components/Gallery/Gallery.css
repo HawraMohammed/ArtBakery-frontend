@@ -62,45 +62,57 @@
 
 .category-filter {
     display: flex;
-    flex-direction: column;
-    width: 220px;
-    margin: 0 auto 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px auto 30px;
 }
 
 .category-filter label {
-    margin-bottom: 8px;
-    color: #684f43;
+    color: #5b4037;
+    font-size: 0.95rem;
     font-weight: 600;
-    font-size: 15px;
 }
 
 .category-filter select {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1px solid #d8efeb;
+    min-width: 160px;
+    padding: 9px 35px 9px 13px;
+    border: 1px solid #dfcfc8;
     border-radius: 10px;
-    background-color: white;
-    color: #684f43;
-    font-size: 15px;
+    background-color: #fff;
+    color: #5b4037;
+    font-size: 0.9rem;
+    font-family: inherit;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 3px 10px rgba(70, 50, 40, 0.08);
-    transition: 0.2s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(91, 64, 55, 0.06);
 }
 
 .category-filter select:hover {
-    border-color: #39756e;
+    border-color: #d6a6b2;
 }
 
 .category-filter select:focus {
-    border-color: #39756e;
-    box-shadow: 0 0 0 3px rgba(57, 117, 110, 0.12);
+    border-color: #d6a6b2;
+    box-shadow: 0 0 0 3px rgba(214, 166, 178, 0.18);
 }
 
 @media (max-width: 600px) {
     .category-filter {
-        width: 100%;
-        max-width: 300px;
-        margin-bottom: 25px;
+        flex-direction: column;
+        gap: 7px;
+        margin: 20px auto 25px;
+    }
+
+    .category-filter label {
+        font-size: 0.85rem;
+    }
+
+    .category-filter select {
+        width: 180px;
+        min-width: unset;
+        padding: 8px 12px;
+        font-size: 0.85rem;
     }
 }

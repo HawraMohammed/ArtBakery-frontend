@@ -150,8 +150,8 @@ function PostDetials({ handleDeletePost }) {
 
             <div className="comments-section">
                 <h2>Comments</h2>
-                {
-                    editingComment ? (
+                {user &&
+                    (editingComment ? (
                         <CommentForm
                             comment={editingComment}
                             handleCommentUpdated={handleCommentUpdated}
@@ -161,7 +161,7 @@ function PostDetials({ handleDeletePost }) {
                         :
                         (<CommentForm handleCommentCreated={handleCommentCreated} />)
 
-                }
+                    )}
                 {comments?.map((comment) => {
                     return <CommentCard comment={comment} key={comment._id}
                         onEdit={setEditingComment}

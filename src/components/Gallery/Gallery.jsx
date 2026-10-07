@@ -18,8 +18,8 @@ function Gallery() {
             }
             catch (err) { console.log(err.message) }
         }
-        if (user) getAllPosts()
-    }, [user])
+        getAllPosts()
+    }, [])
     const filteredPosts =
         selectedCategory === "All"
             ? posts
@@ -27,11 +27,11 @@ function Gallery() {
 
     return (<>
         <div className="posts-page">
-            <div className="new-post-wrapper">
+            {user?.role === 'admin' && (<div className="new-post-wrapper">
                 <Link to="/posts/new" className="new-post-button">
                     <i className="bi bi-plus-lg"></i>
                     New Post
-                </Link>  </div>
+                </Link>  </div>)}
 
             <div className="category-filter">
                 <label htmlFor="category">Filter by category:</label>

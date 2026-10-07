@@ -80,6 +80,27 @@
     }
 }
 
+.orders-title {
+    max-width: 650px;
+    margin: 35px auto 18px;
+    padding: 0 4px;
+    color: #5b4037;
+    font-size: 1.7rem;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .orders-title {
+        width: calc(100% - 24px);
+        margin: 22px auto 14px;
+        padding: 0;
+        font-size: 1.35rem;
+        text-align: center;
+    }
+}
+
 @media (max-width: 576px) {
     .payment-message {
         width: 85%;

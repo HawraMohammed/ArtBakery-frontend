@@ -17,6 +17,7 @@
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(100, 70, 55, 0.12);
     transition: 0.25s ease;
+    cursor: pointer;
 }
 
 .post-card:hover {
