@@ -35,6 +35,8 @@ function OrderCard({ order, handleDeleteOrder, handlePayment, onEdit, onShow, on
                 {user.role === "admin" && (<div>
                     <strong>Customer</strong>
                     <span>{order.user.username}</span>
+                    <strong>Phone number</strong>
+                    <span>{order.user?.phone}</span>
                 </div>)}
                 <div className="order-info">
 
