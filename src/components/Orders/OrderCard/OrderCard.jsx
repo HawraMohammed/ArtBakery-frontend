@@ -42,7 +42,7 @@ function OrderCard({ order, handleDeleteOrder, handlePayment, onEdit, onShow, on
 
                     <strong>Price:</strong>
                     <span>
-                        {order.price + " BHD" ?? "Price will be determined after negotiation"}
+                        {order.price ? `${order.price} BHD` : "Price will be determined after negotiation"}
                     </span>
                     <strong>Payment Status:</strong>
                     <span>
