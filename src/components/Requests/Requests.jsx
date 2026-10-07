@@ -4,6 +4,7 @@ import RequestCard from "./RequestCard/RequestCard";
 import { UserContext } from "../../contexts/UserContext";
 import './Requests.css'
 import EditRequest from "../EditRequest/EditRequest";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function Requests() {
     const { user } = useContext(UserContext)
@@ -52,6 +53,9 @@ function Requests() {
         setEditReq(null);
     };
 
+    if (Allrequests.length === 0) {
+        return <LoadingSpinner />
+    }
     return (<>
         {showReq && (
             <div className="form-overlay single-request">

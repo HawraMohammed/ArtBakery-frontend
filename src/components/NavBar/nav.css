@@ -1,6 +1,7 @@
 .navbar {
-    background-color: #fcecef;
+    background-color: #f7e0e2;
     border-bottom: 2px solid #B5D1CC;
+    box-shadow: 0 5px 18px rgba(181, 209, 204, 0.65);
     padding: 10px 0;
 }
 
@@ -81,7 +82,7 @@
 
 .auth-signup:hover {
     color: #4b9995;
-    background-color: #f9dbe0;
+    background-color: #f2cad1;
 }
 
 .auth-signin {

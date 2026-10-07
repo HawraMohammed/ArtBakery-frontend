@@ -17,6 +17,7 @@ import PostDetials from './components/PostDetails/PostDetails';
 import EditPost from './components/EditPost/EditPost';
 import { useEffect, useState } from 'react';
 import postService from './services/postService';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -41,21 +42,26 @@ const App = () => {
     catch (err) { console.log(err.message) }
   }
   return (
-    <>
+    <div className="app">
+
       <NavBar />
-      <Routes>
-        <Route path='/' element={<Landing />} />
-        <Route path='/request' element={<RequestOrder />} />
-        <Route path='/requests' element={<Requests />} />
-        <Route path='/orders' element={<Orders />} />
-        <Route path='/posts' element={<Gallery />} />
-        <Route path='/posts/new' element={<PostForm />} />
-        <Route path='/posts/:postId' element={<PostDetials handleDeletePost={handleDeletePost} />} />
-        <Route path='/posts/:postId/edit' element={<EditPost />} />
-        <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path='/sign-in' element={<SignInForm />} />
-      </Routes>
-    </>
+      <main className="main-content">
+        <Routes>
+          <Route path='/' element={<Landing />} />
+          <Route path='/request' element={<RequestOrder />} />
+          <Route path='/requests' element={<Requests />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/posts' element={<Gallery />} />
+          <Route path='/posts/new' element={<PostForm />} />
+          <Route path='/posts/:postId' element={<PostDetials handleDeletePost={handleDeletePost} />} />
+          <Route path='/posts/:postId/edit' element={<EditPost />} />
+          <Route path='/sign-up' element={<SignUpForm />} />
+          <Route path='/sign-in' element={<SignInForm />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+
   );
 };
 

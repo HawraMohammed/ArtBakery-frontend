@@ -1,0 +1,23 @@
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+}
+
+.loading-spinner {
+    color: #d98b9b;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .loading-container {
+        min-height: 200px;
+    }
+
+    .loading-spinner {
+        width: 2rem;
+        height: 2rem;
+    }
+}

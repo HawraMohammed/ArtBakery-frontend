@@ -1,9 +1,6 @@
 .post-details-page {
     min-height: 100vh;
     padding: 50px 20px 70px;
-    background: linear-gradient(135deg,
-            #fff8f2,
-            #fcecef);
 }
 
 .post-details-top {

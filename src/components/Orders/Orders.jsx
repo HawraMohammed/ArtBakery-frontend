@@ -4,6 +4,7 @@ import './Orders.css'
 import orderServices from "../../services/orderServices";
 import OrderCard from "./OrderCard/OrderCard";
 import EditOrder from "../EditOrder/EditOrder";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function Orders() {
     const { user } = useContext(UserContext)
@@ -85,6 +86,10 @@ function Orders() {
         }
     }, []);
 
+
+    if (AllOrders.length === 0) {
+        return <LoadingSpinner />
+    }
     return (<>
         {message && (<div className="payment-message">
             <i

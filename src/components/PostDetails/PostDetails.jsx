@@ -5,6 +5,7 @@ import './PostDetails.css'
 import { UserContext } from "../../contexts/UserContext";
 import CommentCard from "./CommentCard/CommentCard";
 import CommentForm from "./CommentForm/CommentForm";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 function PostDetials({ handleDeletePost }) {
     const { user } = useContext(UserContext)
@@ -66,7 +67,8 @@ function PostDetials({ handleDeletePost }) {
         }
     };
     if (!post) {
-        return <p>Loading...</p>;
+        return <LoadingSpinner />
+
     }
 
     return (

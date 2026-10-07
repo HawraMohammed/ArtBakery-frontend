@@ -4,6 +4,7 @@ import postService from "../../services/postService"
 import { Link } from "react-router"
 import PostCard from "./PostCard/PostCard"
 import './Gallery.css'
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
 
 function Gallery() {
     const [posts, setPosts] = useState([])
@@ -25,6 +26,10 @@ function Gallery() {
             ? posts
             : posts.filter(post => post.category === selectedCategory);
 
+
+    if (posts.length === 0) {
+        return <LoadingSpinner />
+    }
     return (<>
         <div className="posts-page">
             {user?.role === 'admin' && (<div className="new-post-wrapper">

@@ -65,7 +65,7 @@
     line-height: 1.7;
 }
 
-.hero-content button {
+.hero-content a {
     width: fit-content;
 
     border: none;
@@ -80,9 +80,10 @@
 
     cursor: pointer;
     transition: 0.2s ease;
+    text-decoration: none;
 }
 
-.hero-content button:hover {
+.hero-content a:hover {
     background: #bcded5;
     transform: translateY(-2px);
 }

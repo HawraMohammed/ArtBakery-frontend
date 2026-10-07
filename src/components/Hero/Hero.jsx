@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import "./Hero.css"
+import { UserContext } from "../../contexts/UserContext"
+import { Link } from "react-router";
 
 function Hero() {
+    const { user } = useContext(UserContext);
     return (
         <section className="hero">
 
@@ -25,7 +29,13 @@ function Hero() {
                     for your special moments.
                 </p>
 
-                <button>Request an Order</button>
+                {user?.role !== 'admin' ? (<Link
+                    to={user ? "/request" : "/sign-up"}
+                >Request an Order</Link>) :
+                    (<Link
+                        to='/orders'
+
+                    >Check your orders</Link>)}
             </div>
 
         </section>
