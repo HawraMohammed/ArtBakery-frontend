@@ -30,12 +30,7 @@ function Gallery() {
     if (!posts) {
         return <LoadingSpinner />
     }
-    if (posts.length === 0)
-        return (<div className="no-posts-card">
-            <i className="bi bi-images no-posts-icon"></i>
-            <h3>No Posts Yet</h3>
-            <p>There are no posts to show right now. Check back soon for more!</p>
-        </div>)
+
     return (<>
         <div className="posts-page">
             {user?.role === 'admin' && (<div className="new-post-wrapper">
@@ -43,32 +38,38 @@ function Gallery() {
                     <i className="bi bi-plus-lg"></i>
                     New Post
                 </Link>  </div>)}
+            {posts.length > 0 ?
+                (<><div className="category-filter">
+                    <label htmlFor="category">Filter by category:</label>
 
-            <div className="category-filter">
-                <label htmlFor="category">Filter by category:</label>
-
-                <select
-                    id="category"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                    <option value="All">All</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Baby">Baby</option>
-                    <option value="Graduation">Graduation</option>
-                    <option value="Wedding">Wedding</option>
-                    <option value="Gift">Gift</option>
-                    <option value="Corporate">Corporate</option>
-                    <option value="Religious">Religious</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div className="posts-container">
-                {filteredPosts.map((post) => {
-                    return <PostCard post={post} key={post._id}
-                        postImage={post.images[0]}
-                    />
-                })}</div>
+                    <select
+                        id="category"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        <option value="All">All</option>
+                        <option value="Birthday">Birthday</option>
+                        <option value="Baby">Baby</option>
+                        <option value="Graduation">Graduation</option>
+                        <option value="Wedding">Wedding</option>
+                        <option value="Gift">Gift</option>
+                        <option value="Corporate">Corporate</option>
+                        <option value="Religious">Religious</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                    <div className="posts-container">
+                        {filteredPosts.map((post) => {
+                            return <PostCard post={post} key={post._id}
+                                postImage={post.images[0]}
+                            />
+                        })}</div></>)
+                : (<div className="no-posts-card">
+                    <i className="bi bi-images no-posts-icon"></i>
+                    <h3>No Posts Yet</h3>
+                    <p>There are no posts to show right now. Check back soon for more!</p>
+                </div>)
+            }
         </div>
     </>)
 }
