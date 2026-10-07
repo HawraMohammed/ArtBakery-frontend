@@ -5,12 +5,13 @@ import "./Calendar.css";
 import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import orderServices from "../../services/orderServices";
-import RequestForm from "./RequestForm/RequestForm";
 
 function Calender({ onDateSelect }) {
     const { user } = useContext(UserContext)
     const [weekOrders, setWeekOrders] = useState({});
     const fetchedRange = useRef(null);
+    const [message, setMessage] = useState(null);
+
 
     const getWeekStart = (date) => {
         const d = new Date(date);
@@ -81,13 +82,31 @@ function Calender({ onDateSelect }) {
                     right: "next",
                 }}
                 datesSet={fetchOrders}
+
+                dayCellClassNames={(info) => {
+                    const status = getWeekStatus(info.date);
+
+                    if (status === "full" || status === "has-order") {
+                        return ["disabled-week"];
+                    }
+
+                    return [];
+                }}
+
                 dateClick={(info) => {
                     const status = getWeekStatus(info.date);
 
-                    if (
-                        status === "full" ||
-                        status === "has-order"
-                    ) {
+                    if (status === "full" || status === "has-order") {
+                        setMessage(
+                            status === "full"
+                                ? "This week is fully booked."
+                                : "You already have an order this week."
+                        );
+
+                        setTimeout(() => {
+                            setMessage(null);
+                        }, 3000);
+
                         return;
                     }
 
@@ -96,6 +115,16 @@ function Calender({ onDateSelect }) {
                 showNonCurrentDates={false}
                 fixedWeekCount={false}
             />
+            {message && (
+                <div className="request-message">
+                    <i
+                        className={
+                            "bi-x-circle-fill failed-icon"}
+                    ></i>
+
+                    <span>{message}</span>
+                </div>
+            )}
         </div>)
 }
 export default Calender

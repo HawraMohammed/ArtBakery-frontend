@@ -11,6 +11,11 @@
     font-family: inherit;
 }
 
+.fc-col-header-cell-cushion {
+    color: #4b9995;
+
+}
+
 .fc-toolbar-title {
     color: #5a4035;
 }
@@ -47,6 +52,86 @@
 .fc .fc-daygrid-day:hover {
     background-color: #F5D9D3;
     cursor: pointer;
+}
+
+.request-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: max-content;
+    max-width: 90%;
+    padding: 30px 50px;
+
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    z-index: 2000;
+}
+
+.request-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: max-content;
+    max-width: 90%;
+    padding: 35px 50px;
+
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    z-index: 2000;
+}
+
+.request-message i {
+    font-size: 3rem;
+    color: #d96b6b;
+
+}
+
+.disabled-week {
+    background-color: #fce4e8 !important;
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.disabled-week .fc-daygrid-day-number {
+    color: #c75b70 !important;
+}
+
+.disabled-week:hover {
+    background-color: #fce4e8 !important;
+}
+
+@media (max-width: 576px) {
+    .request-message {
+        width: 85%;
+        max-width: 350px;
+        padding: 30px 20px;
+        font-size: 1.2rem;
+    }
+
+    .request-message i {
+        font-size: 2.5rem;
+    }
 }
 
 @media (max-width: 600px) {
